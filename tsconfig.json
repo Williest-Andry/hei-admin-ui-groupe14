@@ -1,13 +1,34 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "lib": ["es6", "dom"],
-    "types": ["cypress", "node"],
+    "types": ["cypress"],
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node"
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": [
-    "cypress/**/*.ts",
-    "cypress/**/*.tsx"
+  "include": ["src", "cypress"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }
+
