@@ -5,6 +5,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    baseUrl: process.env.REACT_PREPROD_URL
   },
   env: {
     REACT_APP_TEST_STUDENT1_PASSWORD:
