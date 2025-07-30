@@ -1,0 +1,22 @@
+{
+  "name": "hei-admin-ui-groupe14",
+  "version": "1.0.0",
+  "description": "contains cypress test only",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Williest-Andry/hei-admin-ui-groupe14.git"
+  },
+  "author": "williest-andry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Williest-Andry/hei-admin-ui-groupe14/issues"
+  },
+  "homepage": "https://github.com/Williest-Andry/hei-admin-ui-groupe14#readme",
+  "dependencies": {
+    "cypress": "^14.5.3"
+  }
+}
