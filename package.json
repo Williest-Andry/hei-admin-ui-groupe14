@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Williest-Andry/hei-admin-ui-groupe14#readme",
   "dependencies": {
     "cypress": "^14.5.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }
