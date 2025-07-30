@@ -31,7 +31,7 @@ jobs:
       - name: Run the test 
         uses: cypress-io/github-action@v6.5.0
         with:
-          run: npx cypress run --browser firefox --spec "cypress/e2e/student.fees.real.mpbs.cy.tsx"
+          run: npx cypress run --browser firefox --spec cypress/e2e/student.fees.real.mpbs.cy.tsx
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
