@@ -31,6 +31,10 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm install
+
+
       - name: Run test
         run: npx cypress run --spec cypress/e2e/authentification-real-test.cy.tsx
 
