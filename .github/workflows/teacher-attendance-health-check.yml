@@ -1,0 +1,73 @@
+name: Student attendance health check
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+env:
+  REACT_APP_TEST_STUDENT1_EMAIL: ${{ secrets.STUDENT1_EMAIL }}
+  REACT_APP_TEST_TEACHER1_EMAIL: ${{ secrets.TEACHER1_EMAIL }}
+  REACT_APP_TEST_MANAGER1_EMAIL: ${{ secrets.MANAGER1_EMAIL }}
+  REACT_APP_TEST_MONITOR1_EMAIL: ${{ secrets.MONITOR1_EMAIL }}
+
+  REACT_APP_TEST_STUDENT1_PASSWORD: ${{ secrets.STUDENT1_PASSWORD }}
+  REACT_APP_TEST_TEACHER1_PASSWORD: ${{ secrets.TEACHER1_PASSWORD }}
+  REACT_APP_TEST_MANAGER1_PASSWORD: ${{ secrets.MANAGER1_PASSWORD }}
+  REACT_APP_TEST_MONITOR1_PASSWORD: ${{ secrets.MONITOR1_PASSWORD }}
+
+  REACT_APP_AWS_REGION: eu-west-3
+  REACT_APP_USERPOOL_ID: ${{ vars.PREPROD_USERPOOL_ID }}
+  REACT_APP_WEBCLIENT_ID: ${{ vars.PREPROD_WEBCLIENT_ID }}
+  REACT_APP_OAUTH_DOMAIN: ${{ vars.PREPROD_OAUTH_DOMAIN }}
+  WAF_JS_API_URL: ${{ secrets.WAF_JS_API_URL }}
+  WAF_INTEGRATION_API_KEY: ${{ secrets.WAF_INTEGRATION_API_KEY }}
+  REACT_APP_CASDOOR_SDK_SERVER_URL: ${{ secrets.REACT_APP_CASDOOR_SDK_SERVER_URL }}
+  REACT_APP_CASDOOR_SDK_CLIENT_ID: ${{ secrets.REACT_APP_CASDOOR_SDK_CLIENT_ID }}
+  REACT_APP_CASDOOR_SDK_APP_NAME: ${{ secrets.REACT_APP_CASDOOR_SDK_APP_NAME }}
+  REACT_APP_CASDOOR_SDK_ORGANIZATION_NAME: ${{ secrets.REACT_APP_CASDOOR_SDK_ORGANIZATION_NAME }}
+  REACT_APP_CASDOOR_SDK_REDIRECT_PATH: ${{ secrets.REACT_APP_CASDOOR_SDK_REDIRECT_PATH }}
+  CYPRESS_baseUrl: http://localhost:5173
+
+jobs:
+  run-attendance-e2e-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start app and run Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm run dev
+          wait-on: http://localhost:5173
+          wait-on-timeout: 240
+          browser: chrome
+          spec: cypress/e2e/e2e-health-check/*.cy.js
+
+      - name: Update Instatus page when failure
+        if: ${{ failure() }}
+        run: |
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ATTENDANCE_URL }} \
+          -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{"trigger": "down"}'
+
+      - name: Update Instatus page when success
+        if: ${{ success() }}
+        run: |
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ATTENDANCE_URL }} \
+          -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{"trigger": "up"}'
