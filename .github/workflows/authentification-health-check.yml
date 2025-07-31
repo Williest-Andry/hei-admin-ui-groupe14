@@ -42,7 +42,7 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
                 "trigger": "down"
-              }
+              }'
 
       - name: Update Instatus page when success
         if: ${{ success() }}
@@ -52,4 +52,4 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
                 "trigger": "up"
-              }
+              }'
