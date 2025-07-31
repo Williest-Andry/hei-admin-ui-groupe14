@@ -17,6 +17,7 @@ env:
   REACT_APP_TEST_ADMIN1_PASSWORD: ${{ secrets.REACT_APP_TEST_ADMIN1_PASSWORD }}
   REACT_APP_TEST_ADMIN1_EMAIL: ${{ secrets.REACT_APP_TEST_ADMIN1_EMAIL }}
   REACT_APP_CASDOOR_SDK_SERVER_URL: ${{ secrets.REACT_APP_CASDOOR_SDK_SERVER_URL }}
+  REACT_PREPROD_URL: ${{ secrets.REACT_PREPROD_URL }}
 
 jobs:
   run-fee-payement-e2e-test:
@@ -31,6 +32,10 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm install
+
+
       - name: Run test
         run: npx cypress run --spec cypress/e2e/authentification-real-test.cy.tsx
 
@@ -42,7 +47,7 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
                 "trigger": "down"
-              }
+              }'
 
       - name: Update Instatus page when success
         if: ${{ success() }}
@@ -52,4 +57,4 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
                 "trigger": "up"
-              }
+              }'

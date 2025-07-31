@@ -1,7 +1,6 @@
 describe("Mobile payment by student", () => {
   before("Create the test fee", () => {
-
-    cy.visit("/");
+    cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
@@ -36,10 +35,9 @@ describe("Mobile payment by student", () => {
   });
 
   beforeEach("Connect with student role", () => {
-    cy.wait(500);
-    cy.visit("/");
+    cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
+    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"),() => {
       cy.get(
         "input[placeholder='identifiant, adresse e-mail ou téléphone']"
       ).type(Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"));
@@ -54,16 +52,18 @@ describe("Mobile payment by student", () => {
   it("Checks the icon button based on the existence of the mpbs in the fee", () => {
     cy.contains("td", "fee-payement-health-test").should("exist");
 
-    cy.contains("td", "fee-payement-health-test")
+    cy.contains("td", "fee-payement-health-test-grp14")
       .parents("tr")
       .within(() => {
         cy.get("button").eq(0).should("exist");
         cy.get("button").eq(1).should("exist");
       });
+
+    cy.getByTestid("LogoutIcon").click();
   });
 
   it("Can do mpbs", () => {
-    cy.contains("td", "fee-payement-health-test")
+    cy.contains("td", "fee-payement-health-test-grp14")
       .parents("tr")
       .within(() => {
         cy.get("button").eq(0).click();
@@ -79,7 +79,7 @@ describe("Mobile payment by student", () => {
   });
 
   after("Delete fee after the test", function (this: Mocha.Context) {
-    cy.visit("/");
+    cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
@@ -96,7 +96,7 @@ describe("Mobile payment by student", () => {
     cy.getByTestid("main-search-filter").type("ryan");
     cy.contains("td", "STD21001").click();
     cy.getByTestid("fees-tab").click();
-    cy.contains("td", "MP111111.2222.333339")
+    cy.contains("td", "fee-payement-health-test-grp14") // MP111111.2222.333339
       .parents("tr")
       .within(() => {
         cy.get("button").eq(0).click();

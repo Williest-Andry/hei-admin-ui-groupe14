@@ -2,7 +2,7 @@ describe("Authentification réelle via Casdoor", () => {
 
   it("should authenticate the STUDENT and land on profile page", () => {
 
-    cy.visit("/");
+    cy.visit(Cypress.env("REACT_PREPROD_URL"));
     cy.get('[data-testid="casdoor-login-btn"]').click();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
@@ -27,7 +27,7 @@ describe("Authentification réelle via Casdoor", () => {
 
   it("should authenticate the TEACHER and land on profile page", () => {
 
-    cy.visit("/");
+    cy.visit(Cypress.env("REACT_PREPROD_URL"));
     cy.get('[data-testid="casdoor-login-btn"]').click();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
@@ -53,7 +53,7 @@ describe("Authentification réelle via Casdoor", () => {
 
   it("should authenticate the MANAGER and land on profile page", () => {
 
-    cy.visit("/");
+    cy.visit(Cypress.env("REACT_PREPROD_URL"));
     cy.get('[data-testid="casdoor-login-btn"]').click();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
@@ -79,7 +79,7 @@ describe("Authentification réelle via Casdoor", () => {
 
   it("should authenticate the ADMIN and land on profile page", () => {
 
-    cy.visit("/");
+    cy.visit(Cypress.env("REACT_PREPROD_URL"));
     cy.get('[data-testid="casdoor-login-btn"]').click();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
