@@ -37,6 +37,7 @@ describe("Mobile payment by student", () => {
   beforeEach("Connect with student role", () => {
     cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
+    cy.reload();
     cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"),() => {
       cy.get(
         "input[placeholder='identifiant, adresse e-mail ou téléphone']"
