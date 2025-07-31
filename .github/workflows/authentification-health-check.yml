@@ -32,7 +32,7 @@ jobs:
           node-version: 20
 
       - name: Run test
-        run: npx run cypress --spec cypress\e2e\authentification-real-test.cy.tsx
+        run: npx cypress run --spec cypress/e2e/authentification-real-test.cy.tsx
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
