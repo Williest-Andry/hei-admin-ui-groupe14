@@ -1,10 +1,13 @@
-const { defineConfig } = require('cypress');
+import { defineConfig } from "cypress";
+import "./global";    
+import "./commands";
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    supportFile: "cypress/support/e2e.ts",
     baseUrl: process.env.REACT_PREPROD_URL
   },
   env: {
