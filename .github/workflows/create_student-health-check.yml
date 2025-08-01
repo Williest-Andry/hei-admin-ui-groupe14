@@ -1,10 +1,6 @@
 name: Import student health check
 
 on:
-  schedule:
-    - cron: "0 8 * * *"
-    - cron: "0 12 * * *"
-    - cron: "0 18 * * *"
   workflow_dispatch:
 
 env:
