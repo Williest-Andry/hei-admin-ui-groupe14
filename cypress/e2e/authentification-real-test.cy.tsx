@@ -10,6 +10,7 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("button[type='submit']").click();
     });
 
+    cy.wait(15000);
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "STD21001")
@@ -30,6 +31,7 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("button[type='submit']").click();
     });
 
+    cy.wait(15000);
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "TCR21001")
@@ -51,6 +53,7 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("button[type='submit']").click();
     });
 
+    cy.wait(15000);
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "MGR21001")
@@ -72,6 +75,7 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("button[type='submit']").click();
     });
 
+    cy.wait(15000);
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "ADM21001")
