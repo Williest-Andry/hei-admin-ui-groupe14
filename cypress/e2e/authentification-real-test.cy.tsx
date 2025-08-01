@@ -1,17 +1,15 @@
 describe("Authentification réelle via Casdoor", () => {
 
   it("should authenticate the STUDENT and land on profile page", () => {
+    const email = Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL");
+    const password = Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD");
 
-    cy.visit(Cypress.env("REACT_PREPROD_URL"));
+    cy.visit("https://preprod.admin.hei.school/");
     cy.get('[data-testid="casdoor-login-btn"]').click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
+    cy.origin("https://numer.casdoor.com", { args: { email, password } }, ({ email, password }) => {
+      cy.get('input[placeholder="identifiant, adresse e-mail ou téléphone"]').type(email);
+      cy.get('input[placeholder="Mot de passe"]').type(password, { log: false });
+      cy.get('button[type="submit"]').click();
     });
 
     cy.url().should("include", "/auth/callback");
@@ -26,17 +24,15 @@ describe("Authentification réelle via Casdoor", () => {
 
 
   it("should authenticate the TEACHER and land on profile page", () => {
+    const email = Cypress.env("REACT_APP_TEST_TEACHER1_EMAIL");
+    const password = Cypress.env("REACT_APP_TEST_TEACHER1_PASSWORD");
 
-    cy.visit(Cypress.env("REACT_PREPROD_URL"));
+    cy.visit("https://preprod.admin.hei.school/");
     cy.get('[data-testid="casdoor-login-btn"]').click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_TEACHER1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_TEACHER1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
+    cy.origin("https://numer.casdoor.com", { args: { email, password } }, ({ email, password }) => {
+      cy.get('input[placeholder="identifiant, adresse e-mail ou téléphone"]').type(email);
+      cy.get('input[placeholder="Mot de passe"]').type(password, { log: false });
+      cy.get('button[type="submit"]').click();
     });
 
     cy.url().should("include", "/auth/callback");
@@ -52,17 +48,15 @@ describe("Authentification réelle via Casdoor", () => {
 
 
   it("should authenticate the MANAGER and land on profile page", () => {
+    const email = Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL");
+    const password = Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD");
 
-    cy.visit(Cypress.env("REACT_PREPROD_URL"));
+    cy.visit("https://preprod.admin.hei.school/");
     cy.get('[data-testid="casdoor-login-btn"]').click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
+    cy.origin("https://numer.casdoor.com", { args: { email, password } }, ({ email, password }) => {
+      cy.get('input[placeholder="identifiant, adresse e-mail ou téléphone"]').type(email);
+      cy.get('input[placeholder="Mot de passe"]').type(password, { log: false });
+      cy.get('button[type="submit"]').click();
     });
 
     cy.url().should("include", "/auth/callback");
@@ -78,17 +72,15 @@ describe("Authentification réelle via Casdoor", () => {
 
 
   it("should authenticate the ADMIN and land on profile page", () => {
+    const email = Cypress.env("REACT_APP_TEST_ADMIN1_EMAIL");
+    const password = Cypress.env("REACT_APP_TEST_ADMIN1_PASSWORD");
 
-    cy.visit(Cypress.env("REACT_PREPROD_URL"));
+    cy.visit("https://preprod.admin.hei.school/");
     cy.get('[data-testid="casdoor-login-btn"]').click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_ADMIN1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_ADMIN1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
+    cy.origin("https://numer.casdoor.com", { args: { email, password } }, ({ email, password }) => {
+      cy.get('input[placeholder="identifiant, adresse e-mail ou téléphone"]').type(email);
+      cy.get('input[placeholder="Mot de passe"]').type(password, { log: false });
+      cy.get('button[type="submit"]').click();
     });
 
     cy.url().should("include", "/auth/callback");
