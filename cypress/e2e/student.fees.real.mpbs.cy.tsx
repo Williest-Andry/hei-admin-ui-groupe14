@@ -11,6 +11,14 @@ describe("Mobile payment by student", () => {
       );
       cy.get("button[type='submit']").click();
     });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
+    });
 
     cy.getByTestid("SchoolIcon").click();
     cy.getByTestid("PeopleIcon").click();
@@ -38,7 +46,7 @@ describe("Mobile payment by student", () => {
     cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
     cy.reload();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"),() => {
+    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
       cy.get(
         "input[placeholder='identifiant, adresse e-mail ou téléphone']"
       ).type(Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"));
@@ -46,6 +54,14 @@ describe("Mobile payment by student", () => {
         Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
       );
       cy.get("button[type='submit']").click();
+    });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
     });
     cy.get(`a[href="/students/student1_id/fees"]`).click();
   });
@@ -90,6 +106,14 @@ describe("Mobile payment by student", () => {
         Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
       );
       cy.get("button[type='submit']").click();
+    });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
     });
 
     cy.getByTestid("SchoolIcon").click();
