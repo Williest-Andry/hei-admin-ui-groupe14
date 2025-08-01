@@ -32,7 +32,7 @@ env:
   CYPRESS_baseUrl: http://localhost:5173
 
 jobs:
-  run-attendance-e2e-test:
+  run-fee-payement-e2e-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,32 +42,30 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.17.1
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Start app and run Cypress
-        uses: cypress-io/github-action@v6
+      - name: Run the test 
+        uses: cypress-io/github-action@v6.5.0
         with:
-          start: npm run dev
-          wait-on: http://localhost:5173
-          wait-on-timeout: 240
-          browser: chrome
-          spec: cypress/e2e/e2e-health-check/*.cy.js
+          spec: cypress/e2e/teacher.attendance.cy.tsx
+          browser: firefox
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ATTENDANCE_URL }} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_FEE_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d '{"trigger": "down"}'
+          -d '{
+                "trigger": "down"
+              }'
 
       - name: Update Instatus page when success
         if: ${{ success() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ATTENDANCE_URL }} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_FEE_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
-          -d '{"trigger": "up"}'
+          -d '{
+                "trigger": "up"
+              }'
