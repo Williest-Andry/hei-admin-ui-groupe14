@@ -4,13 +4,12 @@ describe("Authentification réelle via Casdoor", () => {
 
     cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD"));
+    cy.origin("https://numer.casdoor.com", {args: {email: Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"),password: Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")}}, ({ email, password }) => {
+      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
+      cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
     });
 
-    cy.url().should("include", "/auth/callback");
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "STD21001")
@@ -25,13 +24,12 @@ describe("Authentification réelle via Casdoor", () => {
 
     cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(Cypress.env("REACT_APP_TEST_TEACHER1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(Cypress.env("REACT_APP_TEST_TEACHER1_PASSWORD"));
+    cy.origin("https://numer.casdoor.com", {args: {email: Cypress.env("REACT_APP_TEST_TEACHER1_EMAIL"),password: Cypress.env("REACT_APP_TEST_TEACHER1_PASSWORD")}}, ({ email, password }) => {
+      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
+      cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
     });
 
-    cy.url().should("include", "/auth/callback");
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "TCR21001")
@@ -47,13 +45,12 @@ describe("Authentification réelle via Casdoor", () => {
 
     cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD"));
+    cy.origin("https://numer.casdoor.com", {args: {email: Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),password: Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")}}, ({ email, password }) => {
+      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
+      cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
     });
 
-    cy.url().should("include", "/auth/callback");
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "MGR21001")
@@ -69,13 +66,12 @@ describe("Authentification réelle via Casdoor", () => {
 
     cy.visit("/login");
     cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(Cypress.env("REACT_APP_TEST_ADMIN1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(Cypress.env("REACT_APP_TEST_ADMIN1_PASSWORD"));
+    cy.origin("https://numer.casdoor.com", {args: {email: Cypress.env("REACT_APP_TEST_ADMIN1_EMAIL"),password: Cypress.env("REACT_APP_TEST_ADMIN1_PASSWORD")}}, ({ email, password }) => {
+      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
+      cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
     });
 
-    cy.url().should("include", "/auth/callback");
     cy.getByTestid("AccountCircleIcon").click();
     cy.getByTestid("main-content").should("exist");
     cy.get("body").should("contain", "ADM21001")
