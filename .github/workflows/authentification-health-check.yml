@@ -2,22 +2,18 @@ name: Authentification health check
 
 on:
   schedule:
-    - cron: "0 8 * * *"
-    - cron: "0 12 * * *"
-    - cron: "0 18 * * *"
+    - cron: "0 4 * * *"
+    - cron: "0 9 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 env:
-  REACT_APP_TEST_STUDENT1_PASSWORD: ${{ secrets.REACT_APP_TEST_STUDENT1_PASSWORD }}
-  REACT_APP_TEST_STUDENT1_EMAIL: ${{ secrets.REACT_APP_TEST_STUDENT1_EMAIL }}
-  REACT_APP_TEST_TEACHER1_PASSWORD: ${{ secrets.REACT_APP_TEST_TEACHER1_PASSWORD }}
-  REACT_APP_TEST_TEACHER1_EMAIL: ${{ secrets.REACT_APP_TEST_TEACHER1_EMAIL }}
-  REACT_APP_TEST_MANAGER1_PASSWORD: ${{ secrets.REACT_APP_TEST_MANAGER1_PASSWORD }}
-  REACT_APP_TEST_MANAGER1_EMAIL: ${{ secrets.REACT_APP_TEST_MANAGER1_EMAIL }}
-  REACT_APP_TEST_ADMIN1_PASSWORD: ${{ secrets.REACT_APP_TEST_ADMIN1_PASSWORD }}
-  REACT_APP_TEST_ADMIN1_EMAIL: ${{ secrets.REACT_APP_TEST_ADMIN1_EMAIL }}
-  REACT_APP_CASDOOR_SDK_SERVER_URL: ${{ secrets.REACT_APP_CASDOOR_SDK_SERVER_URL }}
   REACT_PREPROD_URL: ${{ secrets.REACT_PREPROD_URL }}
+  REACT_APP_TEST_STUDENT1_EMAIL: ${{ secrets.REACT_APP_TEST_STUDENT1_EMAIL }}
+  REACT_APP_TEST_MANAGER1_EMAIL: ${{ secrets.REACT_APP_TEST_MANAGER1_EMAIL }}
+  REACT_APP_TEST_STUDENT1_PASSWORD: ${{ secrets.REACT_APP_TEST_STUDENT1_PASSWORD }}
+  REACT_APP_TEST_MANAGER1_PASSWORD: ${{ secrets.REACT_APP_TEST_MANAGER1_PASSWORD }}
+  REACT_APP_CASDOOR_SDK_SERVER_URL: ${{ secrets.REACT_APP_CASDOOR_SDK_SERVER_URL }}
 
 jobs:
   run-fee-payement-e2e-test:
@@ -30,19 +26,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22.17.1
 
-      - name: Install dependencies
-        run: npm install
-
-
-      - name: Run test
-        run: npx cypress run --spec cypress/e2e/authentification-real-test.cy.tsx
+      - name: Run the test 
+        uses: cypress-io/github-action@v6.5.0
+        with:
+          spec: cypress/e2e/authentification-real-test.cy.tsx
+          browser: firefox
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_AUTH_URL}} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_FEE_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
@@ -52,7 +47,7 @@ jobs:
       - name: Update Instatus page when success
         if: ${{ success() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_AUTH_URL}} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_FEE_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{

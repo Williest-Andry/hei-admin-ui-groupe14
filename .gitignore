@@ -4,3 +4,4 @@ cypress/downloads/*.pdf
 cypress/screenshots/*
 
 .idea/
+.env
