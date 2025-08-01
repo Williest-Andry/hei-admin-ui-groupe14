@@ -18,6 +18,7 @@ describe("Authentification réelle via Casdoor", () => {
       .and("contain", "Andria")
       .and("contain", "test+ryan@hei.school")
       .and("contain", "0322411123");
+    cy.getByTestid("LogoutIcon").click();
   });
 
 
@@ -39,7 +40,7 @@ describe("Authentification réelle via Casdoor", () => {
       .and("contain", "Teacher")
       .and("contain", "test+teacher1@hei.school")
       .and("contain", "0322411125");
-
+    cy.getByTestid("LogoutIcon").click();
   });
 
 
@@ -61,7 +62,7 @@ describe("Authentification réelle via Casdoor", () => {
       .and("contain", "Managers")
       .and("contain", "test+manager1@hei.school")
       .and("contain", "0322411124");
-
+    cy.getByTestid("LogoutIcon").click();
   });
 
 
@@ -83,6 +84,6 @@ describe("Authentification réelle via Casdoor", () => {
       .and("contain", "Admin")
       .and("contain", "test+admin@hei.school")
       .and("contain", "0322411128");
-
+    cy.getByTestid("LogoutIcon").click();
   });
 });
