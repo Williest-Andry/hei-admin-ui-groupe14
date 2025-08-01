@@ -1,6 +1,6 @@
 describe("Importation d'étudiants", () => {
     it("Redirige vers Casdoor, se connecte avec un compte manager et arrive sur le dashboard", () => {
-        cy.visit("/");
+        cy.visit("/login");
 
         cy.get('[data-testid="casdoor-login-btn"]').click();
 
