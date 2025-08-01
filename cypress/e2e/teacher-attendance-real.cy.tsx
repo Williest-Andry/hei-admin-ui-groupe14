@@ -1,30 +1,25 @@
-describe("Teacher Event Participation Management - Real Data Test", () => {
-  it("teacher can list & change status event participant", () => {
-    cy.visit("/login");
-
-    cy.get('[data-testid="casdoor-login-btn"]').click();
-
-    cy.origin(
-      "https://numer.casdoor.com/login/oauth/authorize",
-      {
-        args: {
-          client_id: Cypress.env("REACT_APP_CASDOOR_SDK_CLIENT_ID"),
-          response_type: "code",
-          redirect_uri: Cypress.config("baseUrl") + "auth/callback",
-          scope: "read",
-          state: "application_test",
-        },
-      },
-      () => {
+describe("teacher attendance real test", () => {
+    before("teacher can list & change status event participant real test", () => {
+      cy.visit("/login");
+      cy.getByTestid("casdoor-login-btn").click();
+      cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
         cy.get(
-          'input[placeholder="identifiant, adresse e-mail ou téléphone"]'
+          "input[placeholder='identifiant, adresse e-mail ou téléphone']"
         ).type(Cypress.env("REACT_APP_TEST_TEACHER1_EMAIL"));
-        cy.get('input[placeholder="Mot de passe"]').type(
+        cy.get("input[placeholder='Mot de passe']").type(
           Cypress.env("REACT_APP_TEST_TEACHER1_PASSWORD")
         );
-        cy.get("button[type=submit]").click();
-      }
-    );
+        cy.get("button[type='submit']").click();
+      });
+      cy.on("fail", (err) => {
+        if (err.message.includes("Timed out retrying")) {
+          cy.go("back");
+          cy.getByTestid("casdoor-login-btn").click();
+          return false;
+        }
+        throw err;
+      });
+    })
     cy.url().should("include", "/");
     cy.get('[data-testid="event-menu"]').click();
     cy.contains("Listes").click();
@@ -59,5 +54,4 @@ describe("Teacher Event Participation Management - Real Data Test", () => {
       });
     cy.contains("Sauvegarder").click();
     cy.contains("Enregistrer avec succès.");
-  });
 });
