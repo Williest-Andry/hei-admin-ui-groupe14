@@ -8,7 +8,8 @@ module.exports = defineConfig({
     },
     defaultCommandTimeout: 20000,
     supportFile: "cypress/support/e2e.ts",
-    baseUrl: process.env.REACT_PREPROD_URL
+    baseUrl: process.env.REACT_PREPROD_URL,
+    experimentalSessionAndOrigin: true,
   },
   env: {
     REACT_APP_TEST_STUDENT1_PASSWORD:
