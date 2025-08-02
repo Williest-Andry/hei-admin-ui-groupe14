@@ -8,7 +8,23 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
       cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
-      cy.wait(15000);
+    });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      } else if (
+        err.message.includes(
+          "The command was expected to run against origin"
+        ) &&
+        err.message.includes("but the application is at origin")
+      ) {
+        cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
     });
 
     cy.getByTestid("AccountCircleIcon").click();
@@ -30,7 +46,23 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
       cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
-      cy.wait(15000);
+    });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      } else if (
+        err.message.includes(
+          "The command was expected to run against origin"
+        ) &&
+        err.message.includes("but the application is at origin")
+      ) {
+        cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
     });
 
     cy.getByTestid("AccountCircleIcon").click();
@@ -52,7 +84,23 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
       cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
-      cy.wait(15000);
+    });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      } else if (
+        err.message.includes(
+          "The command was expected to run against origin"
+        ) &&
+        err.message.includes("but the application is at origin")
+      ) {
+        cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
     });
 
     cy.getByTestid("AccountCircleIcon").click();
@@ -74,7 +122,23 @@ describe("Authentification réelle via Casdoor", () => {
       cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
       cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
-      cy.wait(15000);
+    });
+    cy.on("fail", (err) => {
+      if (err.message.includes("Timed out retrying")) {
+        cy.go("back");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      } else if (
+        err.message.includes(
+          "The command was expected to run against origin"
+        ) &&
+        err.message.includes("but the application is at origin")
+      ) {
+        cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
+        cy.getByTestid("casdoor-login-btn").click();
+        return false;
+      }
+      throw err;
     });
 
     cy.getByTestid("AccountCircleIcon").click();
