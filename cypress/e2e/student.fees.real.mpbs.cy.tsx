@@ -1,20 +1,12 @@
 describe("Mobile payment by student", () => {
   before("Create the test fee", () => {
-    cy.visit("/login");
-    cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
-    });
     cy.on("fail", (err) => {
       if (err.message.includes("Timed out retrying")) {
         cy.go("back");
-        cy.getByTestid("casdoor-login-btn").click();
+        cy.realCasdoorLogin(
+          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+        );
         return false;
       } else if (
         err.message.includes(
@@ -22,12 +14,25 @@ describe("Mobile payment by student", () => {
         ) &&
         err.message.includes("but the application is at origin")
       ) {
-        cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
-        cy.getByTestid("casdoor-login-btn").click();
+        cy.visit(Cypress.env("REACT_PREPROD_URL"));
+        cy.realCasdoorLogin(
+          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+        );
         return false;
       }
       throw err;
     });
+    cy.on("uncaught:exception", (err) => {
+      if (err.message.includes("Unknown user role")) {
+        return false;
+      }
+    });
+
+    cy.realCasdoorLogin(
+      Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+      Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+    );
 
     cy.getByTestid("SchoolIcon").click();
     cy.getByTestid("PeopleIcon").click();
@@ -44,34 +49,39 @@ describe("Mobile payment by student", () => {
     cy.get("button[aria-label=Enregistrer]").click();
     cy.wait(500);
     cy.getByTestid("LogoutIcon").click();
-    cy.on("uncaught:exception", (err) => {
-      if (err.message.includes("Unknown user role")) {
-        return false;
-      }
-    });
+    cy.wait(500);
   });
 
   beforeEach("Connect with student role", () => {
-    cy.visit("/login");
-    cy.getByTestid("casdoor-login-btn").click();
-    cy.reload();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
-    });
     cy.on("fail", (err) => {
       if (err.message.includes("Timed out retrying")) {
         cy.go("back");
-        cy.getByTestid("casdoor-login-btn").click();
+        cy.realCasdoorLogin(
+          Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"),
+          Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
+        );
+        return false;
+      } else if (
+        err.message.includes(
+          "The command was expected to run against origin"
+        ) &&
+        err.message.includes("but the application is at origin")
+      ) {
+        cy.visit(Cypress.env("REACT_PREPROD_URL"));
+        cy.realCasdoorLogin(
+          Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"),
+          Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
+        );
         return false;
       }
       throw err;
     });
+
+    cy.realCasdoorLogin(
+      Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"),
+      Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
+    );
+
     cy.get(`a[href="/students/student1_id/fees"]`).click();
   });
 
@@ -105,32 +115,41 @@ describe("Mobile payment by student", () => {
   });
 
   after("Delete fee after the test", function (this: Mocha.Context) {
-    cy.visit("/login");
-    cy.getByTestid("casdoor-login-btn").click();
-    cy.origin(Cypress.env("REACT_APP_CASDOOR_SDK_SERVER_URL"), () => {
-      cy.get(
-        "input[placeholder='identifiant, adresse e-mail ou téléphone']"
-      ).type(Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"));
-      cy.get("input[placeholder='Mot de passe']").type(
-        Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-      );
-      cy.get("button[type='submit']").click();
-    });
     cy.on("fail", (err) => {
       if (err.message.includes("Timed out retrying")) {
         cy.go("back");
-        cy.getByTestid("casdoor-login-btn").click();
+        cy.realCasdoorLogin(
+          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+        );
+        return false;
+      } else if (
+        err.message.includes(
+          "The command was expected to run against origin"
+        ) &&
+        err.message.includes("but the application is at origin")
+      ) {
+        cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
+        cy.realCasdoorLogin(
+          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+        );
         return false;
       }
       throw err;
     });
+
+    cy.realCasdoorLogin(
+      Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+      Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+    );
 
     cy.getByTestid("SchoolIcon").click();
     cy.getByTestid("PeopleIcon").click();
     cy.getByTestid("main-search-filter").type("ryan");
     cy.contains("td", "STD21001").click();
     cy.getByTestid("fees-tab").click();
-    cy.contains("td", "fee-payement-health-test-grp14") // MP111111.2222.333339
+    cy.contains("td", "MP111111.2222.333339")
       .parents("tr")
       .within(() => {
         cy.get("button").eq(0).click();
@@ -138,24 +157,6 @@ describe("Mobile payment by student", () => {
     cy.get("div[aria-labelledby=alert-dialog-title]").within(() => {
       cy.get("button").eq(1).click();
     });
-
-    // instatus local test
-    // cy.wait(1000);
-
-    // const testState = this.currentTest?.state;
-
-    // const trigger: string = testState == "failed" ? "down" : "up";
-
-    // cy.request({
-    //   method: "POST",
-    //   url: Cypress.env("INSTATUS_WEBHOOK_URL"),
-    //   headers: {
-    //     "Authorization": "Bearer " + Cypress.env("INSTATUS_API_KEY"),
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: {
-    //     trigger: trigger,
-    //   },
-    // });
+    cy.getByTestid("LogoutIcon").click();
   });
 });

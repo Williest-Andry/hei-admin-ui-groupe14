@@ -16,10 +16,10 @@
     "url": "https://github.com/Williest-Andry/hei-admin-ui-groupe14/issues"
   },
   "homepage": "https://github.com/Williest-Andry/hei-admin-ui-groupe14#readme",
-  "dependencies": {
-    "cypress": "^14.5.3"
-  },
   "devDependencies": {
+    "cypress": "^13.7.3",
+    "dotenv": "^17.2.1",
     "typescript": "^5.8.3"
-  }
+  },
+  "type": "module"
 }
