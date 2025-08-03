@@ -8,10 +8,7 @@ export default defineConfig({
     defaultCommandTimeout: 20000,
     supportFile: "cypress/support/e2e.ts",
     baseUrl: process.env.REACT_PREPROD_URL,
-<<<<<<< Updated upstream
-=======
     experimentalOriginDependencies: true
->>>>>>> Stashed changes
   },
   env: {
     REACT_APP_TEST_STUDENT1_PASSWORD:
