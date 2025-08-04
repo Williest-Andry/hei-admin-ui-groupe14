@@ -20,7 +20,7 @@ env:
   REACT_APP_CASDOOR_SDK_SERVER_URL: ${{ secrets.REACT_APP_CASDOOR_SDK_SERVER_URL }}
 
 jobs:
-  run-fee-payement-e2e-test:
+  run-authentification-e2e-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,7 +36,7 @@ jobs:
         uses: cypress-io/github-action@v6.5.0
         with:
           spec: cypress/e2e/authentification-real-test.cy.tsx
-          browser: firefox
+          browser: electron
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
