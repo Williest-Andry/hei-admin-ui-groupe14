@@ -25,7 +25,7 @@ jobs:
       - name: Run the test 
         uses: cypress-io/github-action@v6.5.0
         with:
-          spec: cypress/e2e/import_students.cy.tsx
+          spec: cypress/e2e/import.students.cy.tsx
           browser: firefox
 
       - name: Update Instatus page when failure
