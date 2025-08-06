@@ -31,7 +31,7 @@ jobs:
         uses: cypress-io/github-action@v6.5.0
         with:
           spec: cypress/e2e/teacher.attendance.cy.tsx
-          browser: firefox
+          browser: electron
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
