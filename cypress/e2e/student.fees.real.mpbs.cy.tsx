@@ -103,7 +103,7 @@ describe("Mobile payment by student", () => {
     cy.getByTestid("LogoutIcon").click();
   });
 
-  after("Delete fee after the test", function (this: Mocha.Context) {
+  after("Delete fee after the test", () => {
     cy.on("fail", (err) => {
       if (err.message.includes("Timed out retrying")) {
         cy.go("back");
