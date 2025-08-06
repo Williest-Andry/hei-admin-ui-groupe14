@@ -38,3 +38,20 @@ Cypress.Commands.add("createTestFee", () => {
   cy.getByTestid("LogoutIcon").click();
   cy.wait(500);
 });
+
+Cypress.Commands.add("deleteTestFee", () => {
+  cy.getByTestid("SchoolIcon").click();
+  cy.getByTestid("PeopleIcon").click();
+  cy.getByTestid("main-search-filter").type("ryan");
+  cy.contains("td", "STD21001").click();
+  cy.getByTestid("fees-tab").click();
+  cy.contains("td", "MP111111.2222.333339")
+    .parents("tr")
+    .within(() => {
+      cy.get("button").eq(0).click();
+    });
+  cy.get("div[aria-labelledby=alert-dialog-title]").within(() => {
+    cy.get("button").eq(1).click();
+  });
+  cy.getByTestid("LogoutIcon").click();
+});

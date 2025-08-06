@@ -3,9 +3,10 @@ declare global {
     interface Chainable {
       getByTestid<Subject>(testid: string): Chainable<Subject>;
       realCasdoorLogin(email: string, password: string): void;
-      createTestFee():void;
+      createTestFee(): void;
+      deleteTestFee(): void;
     }
   }
 }
 
-export{}
+export {};

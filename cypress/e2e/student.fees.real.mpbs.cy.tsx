@@ -5,6 +5,14 @@ const createFeeAsManager = () => {
   );
   cy.createTestFee();
 };
+
+const deleteFeeAsManager = () => {
+  cy.realCasdoorLogin(
+    Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+    Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+  );
+  cy.deleteTestFee();
+};
 describe("Mobile payment by student", () => {
   before("Create the test fee", () => {
     cy.on("fail", (err) => {
@@ -99,10 +107,7 @@ describe("Mobile payment by student", () => {
     cy.on("fail", (err) => {
       if (err.message.includes("Timed out retrying")) {
         cy.go("back");
-        cy.realCasdoorLogin(
-          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
-          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-        );
+        deleteFeeAsManager();
         return false;
       } else if (
         err.message.includes(
@@ -111,33 +116,12 @@ describe("Mobile payment by student", () => {
         err.message.includes("but the application is at origin")
       ) {
         cy.visit(Cypress.env("REACT_PREPROD_URL") + "/login");
-        cy.realCasdoorLogin(
-          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
-          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-        );
+        deleteFeeAsManager();
         return false;
       }
       throw err;
     });
 
-    cy.realCasdoorLogin(
-      Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
-      Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-    );
-
-    cy.getByTestid("SchoolIcon").click();
-    cy.getByTestid("PeopleIcon").click();
-    cy.getByTestid("main-search-filter").type("ryan");
-    cy.contains("td", "STD21001").click();
-    cy.getByTestid("fees-tab").click();
-    cy.contains("td", "MP111111.2222.333339")
-      .parents("tr")
-      .within(() => {
-        cy.get("button").eq(0).click();
-      });
-    cy.get("div[aria-labelledby=alert-dialog-title]").within(() => {
-      cy.get("button").eq(1).click();
-    });
-    cy.getByTestid("LogoutIcon").click();
+    deleteFeeAsManager();
   });
 });
