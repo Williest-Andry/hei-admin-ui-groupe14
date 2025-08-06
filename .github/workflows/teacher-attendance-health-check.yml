@@ -2,9 +2,9 @@ name: Student attendance health check
 
 on:
   schedule:
-    - cron: "0 8 * * *"
-    - cron: "0 12 * * *"
-    - cron: "0 18 * * *"
+    - cron: "0 4 * * *"
+    - cron: "0 9 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 env:
@@ -15,7 +15,7 @@ env:
 
 
 jobs:
-  run-fee-payement-e2e-test:
+  run-student-attendance-e2e-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,7 +36,7 @@ jobs:
       - name: Update Instatus page when failure
         if: ${{ failure() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_FEE_URL}} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_STUDENT_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
@@ -46,7 +46,7 @@ jobs:
       - name: Update Instatus page when success
         if: ${{ success() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_FEE_URL}} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_STUDENT_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
