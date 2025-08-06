@@ -1,12 +1,16 @@
+const createFeeAsManager = () => {
+  cy.realCasdoorLogin(
+    Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
+    Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
+  );
+  cy.createTestFee();
+};
 describe("Mobile payment by student", () => {
   before("Create the test fee", () => {
     cy.on("fail", (err) => {
       if (err.message.includes("Timed out retrying")) {
         cy.go("back");
-        cy.realCasdoorLogin(
-          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
-          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-        );
+        createFeeAsManager();
         return false;
       } else if (
         err.message.includes(
@@ -15,10 +19,7 @@ describe("Mobile payment by student", () => {
         err.message.includes("but the application is at origin")
       ) {
         cy.visit(Cypress.env("REACT_PREPROD_URL"));
-        cy.realCasdoorLogin(
-          Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
-          Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-        );
+        createFeeAsManager();
         return false;
       }
       throw err;
@@ -29,27 +30,7 @@ describe("Mobile payment by student", () => {
       }
     });
 
-    cy.realCasdoorLogin(
-      Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
-      Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
-    );
-
-    cy.getByTestid("SchoolIcon").click();
-    cy.getByTestid("PeopleIcon").click();
-    cy.getByTestid("main-search-filter").type("ryan");
-    cy.contains("td", "STD21001").click();
-    cy.getByTestid("fees-tab").click();
-    cy.getByTestid("MoreVertIcon").click();
-    cy.getByTestid("create-button").click();
-    cy.get("div#predefinedType").click();
-    cy.get("li[data-value=92fb0d3f-acb8-4a42-afaa-9d943e42ba62]").click();
-    cy.get("input#isPredefinedDate").click();
-    cy.get("input#due_datetime").type("2025-07-20");
-    cy.wait(500);
-    cy.get("button[aria-label=Enregistrer]").click();
-    cy.wait(500);
-    cy.getByTestid("LogoutIcon").click();
-    cy.wait(500);
+    createFeeAsManager();
   });
 
   beforeEach("Connect with student role", () => {
