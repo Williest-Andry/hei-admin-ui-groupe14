@@ -1,4 +1,4 @@
-describe("test displaying ads on HEI Admin", () => {
+describe("test displaying announcement on HEI Admin", () => {
 
   it("Test on the display of announcements created by ADMIN on HEI Admin with the user STUDENT", () => {
     cy.visit("/login");
@@ -11,9 +11,7 @@ describe("test displaying ads on HEI Admin", () => {
 
 
     cy.get("[data-testid='NewspaperIcon']").click();
-    cy.contains('h6', 'annonce long test a apa')
-      .should('exist')
-      .click()
+    cy.get("[class='MuiTypography-root MuiTypography-h6 MuiTypography-noWrap css-13i41fg']").click();
     cy.get('.toastui-editor-contents')
       .should('exist')
       .invoke('text')

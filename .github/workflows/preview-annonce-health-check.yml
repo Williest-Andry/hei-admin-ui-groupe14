@@ -1,4 +1,4 @@
-name: Preview Annonce health check
+name: Preview announncement health check
 
 on:
   schedule:
@@ -14,7 +14,7 @@ env:
   REACT_APP_CASDOOR_SDK_SERVER_URL: ${{ secrets.REACT_APP_CASDOOR_SDK_SERVER_URL }}
 
 jobs:
-  run-preview-annonce-e2e-test:
+  run-preview-announcement-e2e-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,13 +29,13 @@ jobs:
       - name: Run the test 
         uses: cypress-io/github-action@v6.5.0
         with:
-          spec: cypress/e2e/preview.annonce.test.cy.tsx
+          spec: cypress/e2e/preview.announcement.test.cy.tsx
           browser: electron
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_AUTH_URL }} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ANNOUNCEMENT_URL }} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
@@ -45,7 +45,7 @@ jobs:
       - name: Update Instatus page when success
         if: ${{ success() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_AUTH_URL }} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ANNOUNCEMENT_URL }} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
