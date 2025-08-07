@@ -1,7 +1,6 @@
-describe("Authentification réelle via Casdoor", () => {
+describe("Real authentication test on HEI Admin", () => {
 
-  it("should authenticate the STUDENT and land on profile page", () => {
-
+  it("Check access for user STUDENT", () => {
     cy.visit("/login", { timeout: 10000 });
     cy.get("[data-testid='casdoor-login-btn']", { timeout: 10000 }).click();
     cy.origin("https://numer.casdoor.com", {args: {email: Cypress.env("REACT_APP_TEST_STUDENT1_EMAIL"),password: Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")}}, ({ email, password }) => {
@@ -39,7 +38,7 @@ describe("Authentification réelle via Casdoor", () => {
   });
 
 
-  it("should authenticate the TEACHER and land on profile page", () => {
+  it("Check access for user TEACHER", () => {
 
     cy.visit("/login", { timeout: 10000 });
     cy.get("[data-testid='casdoor-login-btn']", { timeout: 10000 }).click();
@@ -77,7 +76,7 @@ describe("Authentification réelle via Casdoor", () => {
   });
 
 
-  it("should authenticate the MANAGER and land on profile page", () => {
+  it("Check access for user MANAGER", () => {
 
     cy.visit("/login", { timeout: 10000 });
     cy.get("[data-testid='casdoor-login-btn']", { timeout: 10000 }).click();
@@ -115,7 +114,7 @@ describe("Authentification réelle via Casdoor", () => {
   });
 
 
-  it("should authenticate the ADMIN and land on profile page", () => {
+  it("Check access for user ADMIN", () => {
 
     cy.visit("/login", { timeout: 10000 });
     cy.get("[data-testid='casdoor-login-btn']", { timeout: 10000 }).click();
