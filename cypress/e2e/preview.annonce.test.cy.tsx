@@ -10,7 +10,7 @@ describe("test displaying ads on HEI Admin", () => {
     });
 
 
-    cy.get("[data-tesid='NewspaperIcon']").click();
+    cy.get("[data-testid='NewspaperIcon']").click();
     cy.contains('h6', 'annonce long test a apa')
       .should('exist')
       .click()
