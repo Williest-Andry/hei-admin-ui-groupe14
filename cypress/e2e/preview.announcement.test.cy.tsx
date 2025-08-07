@@ -11,7 +11,7 @@ describe("test displaying announcement on HEI Admin", () => {
 
 
     cy.get("[data-testid='NewspaperIcon']").click();
-    cy.get("[class='MuiTypography-root MuiTypography-h6 MuiTypography-noWrap css-13i41fg']").click();
+    cy.get("[data-testid='CampaignIcon']").click();
     cy.get('.toastui-editor-contents')
       .should('exist')
       .invoke('text')
