@@ -19,6 +19,6 @@ describe("test displaying announcement on HEI Admin", () => {
       .invoke('text')
       .then((text) => {
         expect(text.trim()).to.not.equal('');
-      })
+      });
   });
 })

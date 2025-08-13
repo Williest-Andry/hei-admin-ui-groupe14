@@ -81,4 +81,15 @@ describe("Real authentication test on HEI Admin", () => {
       .and("contain", "0322411128");
     cy.get("[data-testid='LogoutIcon']").click();
   });
+
+
+  it("Check that if the credentials are false the user has not accessed", () => {
+
+    cy.visit("/login");
+    cy.get("[data-testid='casdoor-login-btn']").click();
+    cy.realCasdoorLogin("koto@mail.hei.com", "wrongpassword");
+
+
+    cy.contains('Échec de la connexion').should('be.visible');
+  });
 });
