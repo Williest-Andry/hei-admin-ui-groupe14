@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Williest-Andry/hei-admin-ui-groupe14#readme",
   "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
     "cypress": "^13.7.3",
     "dotenv": "^17.2.1",
     "typescript": "^5.8.3"
