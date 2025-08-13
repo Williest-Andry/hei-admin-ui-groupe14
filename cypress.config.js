@@ -5,6 +5,7 @@ import { generateStudentRef } from "./cypress/support/tasks.js";
 dotenv.config();
 
 export default defineConfig({
+  projectId: 'ytj8pw',
   e2e: {
     setupNodeEvents(on, config) {
       on("task", {
