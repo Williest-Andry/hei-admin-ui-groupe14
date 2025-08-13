@@ -1,6 +1,6 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
-import { generateStudentRef } from "./cypress/support/tasks.ts";
+import { generateStudentRef } from "./cypress/support/tasks.js";
 
 dotenv.config();
 
