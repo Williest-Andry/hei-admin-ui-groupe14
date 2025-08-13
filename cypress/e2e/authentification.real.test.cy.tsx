@@ -94,6 +94,8 @@ describe("Real authentication test on HEI Admin", () => {
     });
 
 
-    cy.contains('Échec de la connexion', { timeout : 3000 }).should('be.visible');
+    cy.get("span", { timeout: 5000 })
+      .contains("Échec de la connexion")
+      .should("be.visible");
   });
 });
