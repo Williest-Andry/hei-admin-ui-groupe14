@@ -38,5 +38,6 @@ export default defineConfig({
     REACT_APP_TEST_MONITOR1_EMAIL: process.env.REACT_APP_TEST_MONITOR1_EMAIL,
     INSTATUS_WEBHOOK_URL: process.env.INSTATUS_WEBHOOK_URL,
     INSTATUS_API_KEY: process.env.INSTATUS_API_KEY,
+    CALENDAR_URL: process.env.CALENDAR_URL
   },
 });
