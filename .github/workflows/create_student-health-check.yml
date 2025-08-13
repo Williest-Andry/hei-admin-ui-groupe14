@@ -1,6 +1,10 @@
 name: Import student health check
 
 on:
+  schedule:
+    - cron: "0 4 * * *"
+    - cron: "0 9 * * *"
+    - cron: "0 15 * * *"
   workflow_dispatch:
 
 env:
@@ -26,7 +30,7 @@ jobs:
         uses: cypress-io/github-action@v6.5.0
         with:
           spec: cypress/e2e/import.students.cy.tsx
-          browser: firefox
+          browser: electron
 
       - name: Update Instatus page when failure
         if: ${{ failure() }}
