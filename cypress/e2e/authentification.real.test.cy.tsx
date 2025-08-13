@@ -87,7 +87,11 @@ describe("Real authentication test on HEI Admin", () => {
 
     cy.visit("/login");
     cy.get("[data-testid='casdoor-login-btn']").click();
-    cy.realCasdoorLogin("koto@mail.hei.com", "wrongpassword");
+    cy.origin("https://numer.casdoor.com", { args: { email: "koto@mail.hei.com", password: "wrongpassword" }}, ({ email, password }) => {
+      cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
+      cy.get("input[placeholder='Mot de passe']").type(password);
+      cy.get("button[type='submit']").click();
+    });
 
 
     cy.contains('Échec de la connexion').should('be.visible');
