@@ -91,12 +91,11 @@ describe("Real authentication test on HEI Admin", () => {
       cy.get("input[placeholder='identifiant, adresse e-mail ou téléphone']").type(email);
       cy.get("input[placeholder='Mot de passe']").type(password);
       cy.get("button[type='submit']").click();
-    });
 
-
-    cy.wait(2000);
-    cy.get("span")
-      .contains("Échec de la connexion")
-      .should("be.visible");
+      cy.wait(2000);
+      cy.get("span")
+        .contains("Échec de la connexion")
+        .should("be.visible");
+      });
   });
 });
