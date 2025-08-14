@@ -15,7 +15,7 @@ env:
   CALENDAR_URL: ${{ secrets.CALENDAR_URL}}
 
 jobs:
-  run-fee-payement-e2e-test:
+  run-calendar-view-e2e-test:
     runs-on: ubuntu-latest
 
     steps:
