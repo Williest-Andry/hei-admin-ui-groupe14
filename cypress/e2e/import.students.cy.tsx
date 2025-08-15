@@ -41,14 +41,6 @@
             );
             cy.get('button[type="submit"]').click();
         });
-        cy.on("fail", (err) => {
-          if (err.message.includes("Timed out retrying")) {
-            cy.go("back");
-            cy.getByTestid("casdoor-login-btn").click();
-            return false;
-          }
-          throw err;
-        });
         cy.get('svg[data-testid="SchoolIcon"]').click();
         cy.get('svg[data-testid="PeopleIcon"]').click();
         cy.get('svg[data-testid="AddIcon"]').click();
