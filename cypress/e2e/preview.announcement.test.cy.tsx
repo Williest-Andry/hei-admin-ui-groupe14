@@ -17,8 +17,6 @@ describe("test displaying announcement on HEI Admin", () => {
     cy.get('.toastui-editor-contents')
       .should('exist')
       .invoke('text')
-      .then((text) => {
-        expect(text.trim()).to.not.equal('');
-      });
+      .should('not.be.empty');
   });
 })
