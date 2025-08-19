@@ -1,4 +1,4 @@
-name: Preview announncement health check
+name: Preview announcement health check
 
 on:
   schedule:
