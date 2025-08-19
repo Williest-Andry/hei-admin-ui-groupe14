@@ -11,7 +11,7 @@ describe("test displaying announcement on HEI Admin", () => {
 
 
     cy.get("[data-testid='NewspaperIcon']").click();
-    cy.contains('h6', 'annonce long test a apa')
+    cy.contains('h6', 'Candidature président BDE')
       .should('exist')
       .click()
     cy.get('.toastui-editor-contents')

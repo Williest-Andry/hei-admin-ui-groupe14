@@ -11,11 +11,10 @@ describe("Real authentication test on HEI Admin", () => {
 
     cy.get("[data-testid='AccountCircleIcon']").click();
     cy.get("[data-testid='main-content']").should("exist");
-    cy.get("body").should("contain", "STD21001")
-      .and("contain", "Ryan")
-      .and("contain", "Andria")
+    cy.get("body").should("contain", "STD249999")
+      .and("contain", "Tokimahery")
+      .and("contain", "RAMAROZALA")
       .and("contain", "test+ryan@hei.school")
-      .and("contain", "0322411123");
     cy.get("[data-testid='LogoutIcon']").click();
   });
 
@@ -32,11 +31,10 @@ describe("Real authentication test on HEI Admin", () => {
 
     cy.get("[data-testid='AccountCircleIcon']").click();
     cy.get("[data-testid='main-content']").should("exist");
-    cy.get("body").should("contain", "TCR21001")
-      .and("contain", "One")
-      .and("contain", "Teacher")
+    cy.get("body").should("contain", "TCR25001")
+      .and("contain", "Mentor")
+      .and("contain", "Pedagogique")
       .and("contain", "test+teacher1@hei.school")
-      .and("contain", "0322411125");
     cy.get("[data-testid='LogoutIcon']").click();
   });
 
@@ -53,11 +51,11 @@ describe("Real authentication test on HEI Admin", () => {
 
     cy.get("[data-testid='AccountCircleIcon']").click();
     cy.get("[data-testid='main-content']").should("exist");
-    cy.get("body").should("contain", "MGR21001")
-      .and("contain", "One")
-      .and("contain", "Managers")
+    cy.get("body").should("contain", "MGR22001")
+      .and("contain", "Michou")
+      .and("contain", "Rakotoarizafy")
       .and("contain", "test+manager1@hei.school")
-      .and("contain", "0322411124");
+      .and("contain", "0347962009");
     cy.get("[data-testid='LogoutIcon']").click();
   });
 
@@ -74,11 +72,11 @@ describe("Real authentication test on HEI Admin", () => {
 
     cy.get("[data-testid='AccountCircleIcon']").click();
     cy.get("[data-testid='main-content']").should("exist");
-    cy.get("body").should("contain", "ADM21001")
-      .and("contain", "Admin")
-      .and("contain", "Admin")
+    cy.get("body").should("contain", "MGR21003")
+      .and("contain", "Valisoa")
+      .and("contain", "Ramilison")
       .and("contain", "test+admin@hei.school")
-      .and("contain", "0322411128");
+      .and("contain", "+261 38 51 039 03");
     cy.get("[data-testid='LogoutIcon']").click();
   });
 
