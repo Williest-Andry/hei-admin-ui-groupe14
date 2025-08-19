@@ -36,7 +36,7 @@ jobs:
       - name: Update Instatus page when failure
         if: ${{ failure() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_STUDENT_URL}} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ANNOUNCEMENT_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
@@ -46,7 +46,7 @@ jobs:
       - name: Update Instatus page when success
         if: ${{ success() }}
         run: |
-          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_STUDENT_URL}} \
+          curl -X POST ${{ secrets.INSTATUS_WEBHOOK_ANNOUNCEMENT_URL}} \
           -H "Authorization: Bearer ${{ secrets.INSTATUS_API_KEY }}" \
           -H "Content-Type: application/json" \
           -d '{
