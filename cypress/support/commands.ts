@@ -20,23 +20,18 @@ Cypress.Commands.add("realCasdoorLogin", (email: string, password: string) => {
   );
 });
 
-Cypress.Commands.add("createTestFee", () => {
+Cypress.Commands.add("createTestFeeForStudent", (name: string, testFeeName: string) => {
   cy.getByTestid("SchoolIcon").click();
   cy.getByTestid("PeopleIcon").click();
-  cy.getByTestid("main-search-filter").type("ryan");
-  cy.contains("td", "STD21001").click();
+  cy.getByTestid("main-search-filter").type(name);
+  cy.contains("td", name).click();
   cy.getByTestid("fees-tab").click();
   cy.getByTestid("MoreVertIcon").click();
   cy.getByTestid("create-button").click();
   cy.get("div#predefinedType").click();
-  cy.get("li[data-value=92fb0d3f-acb8-4a42-afaa-9d943e42ba62]").click();
-  cy.get("input#isPredefinedDate").click();
-  cy.get("input#due_datetime").type("2025-07-20");
-  cy.wait(500);
+  cy.contains(testFeeName).click();
   cy.get("button[aria-label=Enregistrer]").click();
-  cy.wait(500);
   cy.getByTestid("LogoutIcon").click();
-  cy.wait(500);
 });
 
 Cypress.Commands.add("deleteTestFee", () => {

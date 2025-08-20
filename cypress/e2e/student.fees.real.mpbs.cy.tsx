@@ -1,9 +1,12 @@
+const studentName = "Tokimahery";
+const testFeeName = "fee-payement-health-test-G14";
+
 const createFeeAsManager = () => {
   cy.realCasdoorLogin(
     Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
     Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
   );
-  cy.createTestFee();
+  cy.createTestFeeForStudent(studentName, testFeeName);
 };
 
 const deleteFeeAsManager = () => {
