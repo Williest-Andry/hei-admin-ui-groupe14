@@ -34,13 +34,13 @@ Cypress.Commands.add("createTestFeeForStudent", (name: string, testFeeName: stri
   cy.getByTestid("LogoutIcon").click();
 });
 
-Cypress.Commands.add("deleteTestFee", () => {
+Cypress.Commands.add("deleteTestFeeForStudent", (name: string, testFeeName: string) => {
   cy.getByTestid("SchoolIcon").click();
   cy.getByTestid("PeopleIcon").click();
-  cy.getByTestid("main-search-filter").type("ryan");
-  cy.contains("td", "STD21001").click();
+  cy.getByTestid("main-search-filter").type(name);
+  cy.contains("td", name).click();
   cy.getByTestid("fees-tab").click();
-  cy.contains("td", "MP111111.2222.333339")
+  cy.contains("td", testFeeName)
     .parents("tr")
     .within(() => {
       cy.get("button").eq(0).click();

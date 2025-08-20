@@ -1,5 +1,6 @@
 const studentName = "Tokimahery";
 const testFeeName = "fee-payement-health-test-G14";
+const payementRef = "MP111111.2222.333339";
 
 const createFeeAsManager = () => {
   cy.realCasdoorLogin(
@@ -14,8 +15,9 @@ const deleteFeeAsManager = () => {
     Cypress.env("REACT_APP_TEST_MANAGER1_EMAIL"),
     Cypress.env("REACT_APP_TEST_MANAGER1_PASSWORD")
   );
-  cy.deleteTestFee();
+  cy.deleteTestFeeForStudent(studentName, testFeeName);
 };
+
 describe("Mobile payment by student", () => {
   before("Create the test fee", () => {
     cy.on("fail", (err) => {
@@ -74,13 +76,13 @@ describe("Mobile payment by student", () => {
       Cypress.env("REACT_APP_TEST_STUDENT1_PASSWORD")
     );
 
-    cy.get(`a[href="/students/student1_id/fees"]`).click();
+    cy.getByTestid("AttachMoneyIcon").click();
   });
 
   it("Checks the icon button based on the existence of the mpbs in the fee", () => {
-    cy.contains("td", "fee-payement-health-test").should("exist");
+    cy.contains("td", testFeeName).should("exist");
 
-    cy.contains("td", "fee-payement-health-test-grp14")
+    cy.contains("td", testFeeName)
       .parents("tr")
       .within(() => {
         cy.get("button").eq(0).should("exist");
@@ -91,13 +93,13 @@ describe("Mobile payment by student", () => {
   });
 
   it("Can do mpbs", () => {
-    cy.contains("td", "fee-payement-health-test-grp14")
+    cy.contains("td", testFeeName)
       .parents("tr")
       .within(() => {
         cy.get("button").eq(0).click();
       });
 
-    cy.get("input#psp_id").type("MP111111.2222.333339");
+    cy.get("input#psp_id").type(payementRef);
     cy.get("button[aria-label=Enregistrer]").click();
 
     cy.contains("Frais créés avec succès");
