@@ -34,6 +34,13 @@ jobs:
           spec: cypress/e2e/student.fees.real.mpbs.cy.tsx
           browser: electron
 
+      - name: Re-run the test if failed
+        if: ${{ failure() }}
+        uses: cypress-io/github-action@v6.5.0
+        with:
+          spec: cypress/e2e/student.fees.real.mpbs.cy.tsx
+          browser: electron
+
       - name: Update Instatus page when failure
         if: ${{ failure() }}
         run: |
